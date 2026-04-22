@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Download Automático</title>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <h1>Seu Produto Digital</h1>
+    <p>Acesso enviado por email após pagamento</p>
+    <button id="comprar">Comprar por R$47</button>
+
+    <script>
+    const stripe = Stripe('pk_live_TROQUE_PELA_SUA_CHAVE_PUBLICA');
+    
+    document.getElementById('comprar').onclick = async () => {
+      const res = await fetch('/api/checkout', { method: 'POST' });
+      const data = await res.json();
+      stripe.redirectToCheckout({ sessionId: data.id });
+    };
+    </script>
+</body>
+</html>
